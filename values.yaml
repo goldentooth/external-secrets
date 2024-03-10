@@ -1,2 +1,8 @@
 spec:
-  namespace: 'some-namespace-name'
+  namespace: 'external-secrets'
+  projectName: 'gitops-repo'
+  releaseName: 'external-secrets'
+  source:
+    repoURL: 'https://charts.external-secrets.io'
+    chart: 'external-secrets'
+    targetRevision: 'v0.9.13'

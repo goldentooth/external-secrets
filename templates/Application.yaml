@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "{{ .Values.releaseName }}"
+  namespace: argocd
+  labels:
+    name: "{{ .Values.releaseName }}"
+    managed-by: 'argocd'
+spec:
+  project: "{{ .Values.projectName }}"
+  source:
+    repoURL: "{{ .Values.source.repoURL }}"
+    chart: "{{ .Values.source.chart }}"
+    targetRevision: "{{ .Values.source.targetRevision }}"
+    helm:
+      releaseName: "{{ .Values.releaseName }}"
+      valuesObject:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: "{{ .Values.namespace }}"
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=false
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+      - RespectIgnoreDifferences=true
+      - ApplyOutOfSyncOnly=true

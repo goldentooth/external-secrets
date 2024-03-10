@@ -1,5 +1,5 @@
 apiVersion: 'v2'
-name: 'some-application-name'
+name: 'external-secrets'
 description: 'Some description of the application'
 type: 'application'
 version: '0.0.1'

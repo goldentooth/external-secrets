@@ -1,23 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: "{{ .Values.releaseName }}"
+  name: "{{ .Values.spec.releaseName }}"
   namespace: argocd
   labels:
-    name: "{{ .Values.releaseName }}"
+    name: "{{ .Values.spec.releaseName }}"
     managed-by: 'argocd'
 spec:
-  project: "{{ .Values.projectName }}"
+  project: "{{ .Values.spec.projectName }}"
   source:
-    repoURL: "{{ .Values.source.repoURL }}"
-    chart: "{{ .Values.source.chart }}"
-    targetRevision: "{{ .Values.source.targetRevision }}"
+    repoURL: "{{ .Values.spec.source.repoURL }}"
+    chart: "{{ .Values.spec.source.chart }}"
+    targetRevision: "{{ .Values.spec.source.targetRevision }}"
     helm:
-      releaseName: "{{ .Values.releaseName }}"
+      releaseName: "{{ .Values.spec.releaseName }}"
       valuesObject:
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: "{{ .Values.namespace }}"
+    namespace: "{{ .Values.spec.namespace }}"
   syncPolicy:
     automated:
       prune: true
